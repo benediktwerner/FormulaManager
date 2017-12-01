@@ -1,0 +1,108 @@
+/* Panels: reseting default margins and paddings in H tags */
+
+.panel .panel-heading h1,
+.panel .panel-heading h2,
+.panel .panel-heading h3,
+.panel .panel-heading h4,
+.panel .panel-heading h5,
+.panel .panel-heading h6 {
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Panels: deleting border-top in the first row of a table contained within a Panel class */
+
+.panel-body tr:first-child td,
+.panel-body tr:first-child th {
+    border-top: 0;
+}
+
+.list-group-item-text.formula-description {
+    padding-left: 42px;
+    padding-top: 10px;
+    color: #777;
+}
+
+input.big-checkbox {
+    height: 25px;
+    width: 25px;
+}
+
+.input-group.small-color-picker {
+    width: 130px;
+}
+
+.spacewalk-section-toolbar-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.spacewalk-section-toolbar {
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 0 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fafafa+0,eaeaea+100 */
+    background: rgb(250, 250, 250);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(234, 234, 234, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(234, 234, 234, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(234, 234, 234, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#eaeaea', GradientType=0);
+    /* IE6-9 */
+}
+
+.spacewalk-section-toolbar .action-button-wrapper {
+    float: right;
+    overflow: auto;
+    margin-right: 5px;
+}
+
+.spacewalk-section-toolbar .selector-button-wrapper {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.spacewalk-section-toolbar .action-button-wrapper button,
+.spacewalk-section-toolbar .action-button-wrapper input,
+.spacewalk-section-toolbar .action-button-wrapper .btn,
+.spacewalk-section-toolbar .selector-button-wrapper button,
+.spacewalk-section-toolbar .selector-button-wrapper input,
+.spacewalk-section-toolbar .selector-button-wrapper .btn {
+    /* .spacewalk-section-toolbar-button; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.spacewalk-section-toolbar .spacewalk-list-pagination {
+    display: inline-block;
+    margin: 1.2em 1em;
+}
+
+.spacewalk-section-toolbar .spacewalk-list-pagination .spacewalk-list-pagination-btns {
+    padding-left: .5em;
+}
+
+.spacewalk-section-toolbar>.btn-group {
+    margin: 10px;
+}
+
+.fa {
+    margin-right: .5em;
+}
+
+.fa-right {
+    margin-right: 0;
+    margin-left: .5em;
+}
+
+.no-margin {
+    margin: 0;
+}

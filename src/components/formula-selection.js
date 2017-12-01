@@ -4,10 +4,12 @@ const React = require("react");
 
 const Messages = require("../components/messages").Messages;
 const Network = require("../utils/network");
+const Functions = require("../utils/functions")
 const Buttons = require("../components/buttons")
 
 const Button = Buttons.Button;
 const AsyncButton = Buttons.AsyncButton;
+const capitalize = Functions.capitalize;
 
 class FormulaSelection extends React.Component {
     constructor(props) {
@@ -133,7 +135,7 @@ class FormulaSelection extends React.Component {
                     <a href="#" onClick={this.onListItemClick} id={formula.name} key={formula.name} title={formula.description} className={this.getListStyle(formula.selected)}>
                         <i className={this.getListIcon(formula.selected)} />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {toTitle(formula.name)}
+                        {capitalize(formula.name)}
                         { formula.description ? (<i id={"info_button_" + formula.name} className="fa fa-lg fa-info-circle pull-right" />) : null }
                         {this.getDescription(formula)}
                     </a>
@@ -148,7 +150,7 @@ class FormulaSelection extends React.Component {
                 <a href="#" onClick={this.onGroupItemClick} id={"group_" + group_name} key={"group_" + group_name} className={this.getListStyle(group_state)}>
                     <strong>
                         <i className={this.getListIcon(group_state)} />
-                        {" " + toTitle(group_name)}
+                        {" " + capitalize(group_name)}
                     </strong>
                 </a>
             );
@@ -157,7 +159,7 @@ class FormulaSelection extends React.Component {
                     <a href="#" onClick={this.onListItemClick} id={formula.name} key={formula.name} title={formula.description} className={this.getListStyle(formula.selected)}>
                         <i className={this.getListIcon(formula.selected)} />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {toTitle(formula.name)}
+                        {capitalize(formula.name)}
                         { formula.description ? (<i id={"info_button_" + formula.name} className="fa fa-lg fa-info-circle pull-right" />) : null }
                         {this.getDescription(formula)}
                     </a>
@@ -264,11 +266,6 @@ function get(value, def) {
     if (value == undefined)
         return def;
     return value;
-}
-
-// Replace all "_" and "-" with spaces and capitalize the first letter of each word
-function toTitle(str) {
-    return str.replace(new RegExp("_|-", 'g'), " ").replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 module.exports = {
