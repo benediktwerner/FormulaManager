@@ -21,7 +21,7 @@ class App extends Component {
             formulaId={0}
             systemId={1}
             getFormulaUrl={(id) => "/" + id}
-            currentScope="system"
+            scope="system"
           />
         </div>
       </div>

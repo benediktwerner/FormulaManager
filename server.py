@@ -2,7 +2,7 @@
 
 """FormulaManager flask server"""
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def index():
     return "Index page"
 
 
-TEST_FORMULA = {
+DATABASE = {
     "formula_name": "Test formula",
     "formula_list": ["TestFormula", "Other Formula"],
     "layout": {
@@ -36,20 +36,30 @@ TEST_FORMULA = {
                 "$visibleIf": "Group$some-bool == true"
             }
         }
-    }
+    },
+    "system_data": {}
 }
 
 
 @app.route("/testData")
 def test_data():
     """Test formula"""
-    return jsonify(TEST_FORMULA)
+    return jsonify(DATABASE)
     # response = app.response_class(
     #     response=json.dumps(data),
     #     status=200,
     #     mimetype='application/json'
     # )
     # return response
+
+
+@app.route("/save", methods=["POST"])
+def save():
+    """Save formula data"""
+    DATABASE["system_data"] = request.get_json().get("content", {})
+    print("Save request:")
+    print(DATABASE["system_data"])
+    return jsonify(["Success!"])
 
 
 if __name__ == "__main__":
