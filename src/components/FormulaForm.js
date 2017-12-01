@@ -366,7 +366,7 @@ class FormulaForm extends React.Component {
                     <form id="editFormulaForm" className="form-horizontal" onSubmit={this.saveFormula}>
                         <div className="spacewalk-section-toolbar">
                             <div className="btn-group">
-                                <button id="prev-btn" type="button" onClick={function() {window.location.href = nextHref}} disabled={this.props.formulaId === 0} className="btn btn-default"><i className="fa fa-arrow-left" /> Prev</button>
+                                <button id="prev-btn" type="button" onClick={function() {window.location.href = prevHref}} disabled={this.props.formulaId === 0} className="btn btn-default"><i className="fa fa-arrow-left" /> Prev</button>
                                 <button id="next-btn" type="button" onClick={function() {window.location.href = nextHref}} disabled={this.state.formulaList.length - 1 <= this.props.formulaId} className="btn btn-default">Next <i className="fa fa-arrow-right" /></button>
                             </div>
                             <div className="action-button-wrapper">

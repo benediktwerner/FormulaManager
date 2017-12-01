@@ -1,7 +1,3 @@
-"use strict";
-
-const React = require("react")
-
 const cancelable = (promise, onCancel) => {
     var rejectFn;
     var isCanceled = false;
@@ -27,7 +23,7 @@ const cancelable = (promise, onCancel) => {
 }
 
 function dateWithTimezone(dateString) {
-    const offsetNum = parseInt(dateString.substring(dateString.length - 6).replace(':', ''));
+    const offsetNum = parseInt(dateString.substring(dateString.length - 6).replace(':', ''), 10);
     const serverOffset = Math.trunc(offsetNum / 100) * 60 + offsetNum % 100;
     const orig = new Date(dateString);
     const clientOffset = -orig.getTimezoneOffset();
@@ -80,7 +76,7 @@ function getQueryStringValue(key) {
   // See for a standard implementation:
   // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
   return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" +
-        encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        encodeURIComponent(key).replace(/[.+*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
 function urlBounce(defaultUrl, qstrParamKey) {
