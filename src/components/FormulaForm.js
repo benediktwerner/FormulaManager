@@ -87,7 +87,7 @@ class FormulaForm extends React.Component {
             this.props.saveUrl,
             JSON.stringify(formData),
             "application/json"
-        ).promise.then(function (data) { this.setState({ messages: data }); }.bind(this),
+        ).promise.then(function (data) { if (data instanceof Array) this.setState({ messages: data }); }.bind(this),
             function (error) {
                 try {
                     this.setState({
@@ -195,10 +195,11 @@ class FormulaForm extends React.Component {
         let messageItems = this.state.messages.map((msg) => {
             return { severity: "info", text: msg };
         });
-        messageItems.push(this.state.errors.map((msg) => {
+        messageItems.concat(this.state.errors.map((msg) => {
             return { severity: "error", text: msg };
         }));
-        const messages = <Messages items={messageItems} />
+        console.log(messageItems);
+        const messages = <Messages items={messageItems} />;
 
         if (this.state.formulaLayout === undefined || this.state.formulaLayout === null || $.isEmptyObject(this.state.formulaLayout)) {
             // this.props.addFormulaNavBar(get(this.state.formulaList, ["Not found"]), this.props.formulaId);
