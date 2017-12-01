@@ -107,7 +107,7 @@ class FormulaForm extends React.Component {
         for (let key in values) {
             let value = values[key];
             let element = layout[key];
-            if (element.$type === "group" || element.$type === "hidden-group" || element.$type === "edit-group") {
+            if (element.$type === "group" || element.$type === "namespace" || element.$type === "edit-group") {
                 value = this.getValuesClean(value, element);
                 if (!$.isEmptyObject(value))
                     result[key] = value;
@@ -300,7 +300,7 @@ function generateValues(layout, group_data, system_data) {
         let value = null
         let element = layout[key];
 
-        if (element.$type === "group" || element.$type === "hidden-group") {
+        if (element.$type === "group" || element.$type === "namespace") {
             value = generateValues(element, get(group_data[key], {}), get(system_data[key], {}), element.$scope);
         } else if (element.$scope === "system") {
             value = get(system_data[key], get(group_data[key], element.$default));
