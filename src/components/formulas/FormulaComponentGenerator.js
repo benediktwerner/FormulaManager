@@ -96,15 +96,21 @@ function generateFormulaComponent(element, value, formulaForm, parents) {
     }
 }
 
+function getConditionValue(value) {
+    value = value.trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'")))
+        value = value.substring(1, value.length-1);
+    return value;
+}
+
 function checkVisibilityCondition(condition, formulaForm) {
-    condition = condition.replace(/\s+/g, '');
     if (condition.includes("!=")) {
         condition = condition.split("!=");
-        return String(formulaForm.getValueById(condition[0])) !== condition[1]
+        return String(formulaForm.getValueById(condition[0].trim())) !== getConditionValue(condition[1]);
     }
     else if (condition.includes("==")) {
         condition = condition.split("==");
-        return String(formulaForm.getValueById(condition[0])) === condition[1]
+        return String(formulaForm.getValueById(condition[0].trim())) === getConditionValue(condition[1]);
     }
     return false;
 }
