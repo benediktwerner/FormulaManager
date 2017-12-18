@@ -198,7 +198,6 @@ class FormulaForm extends React.Component {
         messageItems.concat(this.state.errors.map((msg) => {
             return { severity: "error", text: msg };
         }));
-        console.log(messageItems);
         const messages = <Messages items={messageItems} />;
 
         if (this.state.formulaLayout === undefined || this.state.formulaLayout === null || $.isEmptyObject(this.state.formulaLayout)) {
