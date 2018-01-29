@@ -1,4 +1,5 @@
 const React = require("react");
+const EditGroup = require("./EditGroup").EditGroup;
 const PasswordInput = require("./PasswordInput").PasswordInput;
 const BASIC_INPUT_TYPES = ["text", "email", "url", "date", "time"];
 
@@ -16,7 +17,7 @@ function generateFormulaComponent(element, value, formulaForm, parents) {
             </div>
         );
     else if (element.$type === "password")
-        return <PasswordInput id={id} element={element} value={value} onChange={formulaForm.handleChange} disabled={isDisabled} />;
+        return <PasswordInput id={id} key={id} element={element} value={value} onChange={formulaForm.handleChange} disabled={isDisabled} />;
     else if (element.$type === "color")
         return wrapFormGroupWithLabel(element.$name,
             <div className="col-lg-6">
@@ -44,7 +45,7 @@ function generateFormulaComponent(element, value, formulaForm, parents) {
         );
     else if (element.$type === "group") {
         return (
-            <div className="panel panel-default" id={id}>
+            <div className="panel panel-default" id={id} key={id}>
                 <div className="panel-heading">
                     <h4>{element.$name}</h4>
                 </div>
@@ -57,21 +58,7 @@ function generateFormulaComponent(element, value, formulaForm, parents) {
     else if (element.$type === "namespace")
         return generateChildrenFormItems(element, value, formulaForm, id);
     else if (element.$type === "edit-group")
-        return (
-            <div className="panel panel-default" id={id}>
-                <div className="panel-heading">
-                    <h4>{element.$name}</h4>
-                </div>
-                <div className="panel-body">
-                    <div id={id + "$elements"}>
-                        {generateEditGroup(element, value, id)}
-                    </div>
-                    <button className="btn btn-default" title="Add Element"> {/* TODO: add element */}
-                        <i className="fa fa-plus" />
-                    </button>
-                </div>
-            </div>
-        );
+        return <EditGroup id={id} key={element.$name} element={element} value={value} formulaForm={formulaForm} generateFormulaComponent={generateFormulaComponent} />;
     else if (element.$type === "select")
         return wrapFormGroupWithLabel(element.$name,
             <div className="col-lg-6">
@@ -88,7 +75,7 @@ function generateFormulaComponent(element, value, formulaForm, parents) {
         );
     else {
         console.error("Unknown $type: " + element.$type);
-        return wrapFormGroupWithLabel(get(element.$name, "Element not found"),
+        return wrapFormGroupWithLabel(get(element.$name, "Unknown element type \"" + element.$type + "\""),
             <div className="col-lg-6" id={id}>
                 {JSON.stringify(value)}
             </div>
@@ -115,10 +102,6 @@ function checkVisibilityCondition(condition, formulaForm) {
     return false;
 }
 
-function generateEditGroup(element, value, id) {
-    return null;
-}
-
 function generateChildrenFormItems(element, value, formulaForm, id) {
     var child_items = [];
     for (var child_name in element) {
@@ -129,7 +112,7 @@ function generateChildrenFormItems(element, value, formulaForm, id) {
 }
 
 function generateSelectList(data) {
-    var options = []
+    var options = [];
     for (var key in data)
         options.push(<option value={data[key]}>{data[key]}</option>);
     return options;
@@ -137,7 +120,7 @@ function generateSelectList(data) {
 
 function wrapFormGroupWithLabel(element_name, innerHTML) {
     return (
-        <div className="form-group">
+        <div className="form-group" key={element_name}>
             {wrapLabel(element_name)}
             {innerHTML}
         </div>
@@ -159,6 +142,4 @@ function get(value, def) {
 }
 
 
-module.exports = {
-    generateFormulaComponent: generateFormulaComponent
-};
+module.exports.generateFormulaComponent = generateFormulaComponent;

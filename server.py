@@ -2,8 +2,11 @@
 
 """FormulaManager flask server"""
 
+import yaml
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+
 
 app = Flask(__name__)
 CORS(app)
@@ -17,48 +20,31 @@ def index():
 
 DATABASE = {
     "formula_name": "Test formula",
-    "formula_list": ["TestFormula", "Other Formula"],
-    "layout": {
-        "MyTest": {
-            "$type": "text",
-            "$default": "default text"
-        },
-        "Group": {
-            "$type": "group",
-            "some-color": {
-                "$type": "color"
-            },
-            "some-bool": {
-                "$type": "boolean"
-            },
-            "pwd": {
-                "$type": "password",
-                "$visibleIf": "Group$some-bool == true"
-            }
-        }
-    },
+    "formula_list": ["TestFormula"],
     "system_data": {}
 }
+
+
+def load_layout(file_name="test_formula.yml"):
+    """Load the formula layout from a yaml file"""
+    with open(file_name) as layout_file:
+        DATABASE["layout"] = yaml.load(layout_file)
 
 
 @app.route("/testData")
 def test_data():
     """Test formula"""
+    load_layout()
     return jsonify(DATABASE)
-    # response = app.response_class(
-    #     response=json.dumps(data),
-    #     status=200,
-    #     mimetype='application/json'
-    # )
-    # return response
 
 
 @app.route("/save", methods=["POST"])
 def save():
     """Save formula data"""
     DATABASE["system_data"] = request.get_json().get("content", {})
-    print("Save request:")
+    print("== Save request:")
     print(DATABASE["system_data"])
+    print("================")
     return jsonify(["Success!"])
 
 

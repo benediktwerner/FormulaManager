@@ -107,7 +107,7 @@ class FormulaForm extends React.Component {
         for (let key in values) {
             let value = values[key];
             let element = layout[key];
-            if (element.$type === "group" || element.$type === "namespace" || element.$type === "edit-group") {
+            if (element.$type === "group" || element.$type === "namespace") {
                 value = this.getValuesClean(value, element);
                 if (!$.isEmptyObject(value))
                     result[key] = value;
@@ -201,7 +201,8 @@ class FormulaForm extends React.Component {
         const messages = <Messages items={messageItems} />;
 
         if (this.state.formulaLayout === undefined || this.state.formulaLayout === null || $.isEmptyObject(this.state.formulaLayout)) {
-            // this.props.addFormulaNavBar(get(this.state.formulaList, ["Not found"]), this.props.formulaId);
+            if (this.props.addFormulaNavBar !== undefined)
+                this.props.addFormulaNavBar(get(this.state.formulaList, ["Not found"]), this.props.formulaId);
             return (
                 <div>
                     {messages}
@@ -217,7 +218,8 @@ class FormulaForm extends React.Component {
             );
         }
         else {
-            // this.props.addFormulaNavBar(this.state.formulaList, this.props.formulaId);
+            if (this.props.addFormulaNavBar !== undefined)
+                this.props.addFormulaNavBar(this.state.formulaList, this.props.formulaId);
             const nextHref = this.props.getFormulaUrl(this.props.formulaId - 1);
             const prevHref = this.props.getFormulaUrl(this.props.formulaId + 1);
             return (
@@ -277,8 +279,16 @@ function preprocessLayout(layout, scope = "system") {
             child.$default = get(child.$default, generatePassword());
         else if (child.$type === "group" || child.$type === "namespace")
             child = preprocessLayout(child, child.$scope);
-        else if (child.$type === "edit-group")
-            child.$element = preprocessLayout(child.$element, child.$scope);
+        else if (child.$type === "edit-group") {
+            child.$prototype = preprocessLayout(child.$prototype, child.$scope);
+            child.$prototype.$type = "group";
+            if (child.$itemName === undefined) child.$itemName = "Item ${i}";
+            child.$newItemValue = generateValues(child.$prototype, {}, {});
+            child.$default = get(child.$default, []);
+            while (child.$default.length < child.$minItems) {
+                child.$default.push(Object.assign({}, child.$newItemValue));
+            }
+        }
         else
             child.$default = get(child.$default, "");
 

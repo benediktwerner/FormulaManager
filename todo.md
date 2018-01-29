@@ -1,4 +1,6 @@
 # TODO
+- [ ] Better type name for edit-group
+
 - [ ] Create index page that shows minions
 - [ ] Create minion page that shows formula selection
 - [ ] Create formula config page
