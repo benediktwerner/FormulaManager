@@ -2,14 +2,30 @@
 
 """FormulaManager flask server"""
 
+from collections import OrderedDict
+
+import json
 import yaml
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 
+
 app = Flask(__name__)
 CORS(app)
+
+
+def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
+    class OrderedLoader(Loader):
+        pass
+    def construct_mapping(loader, node):
+        loader.flatten_mapping(node)
+        return object_pairs_hook(loader.construct_pairs(node))
+    OrderedLoader.add_constructor(
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+        construct_mapping)
+    return yaml.load(stream, OrderedLoader)
 
 
 @app.route("/")
@@ -28,14 +44,20 @@ DATABASE = {
 def load_layout(file_name="test_formula.yml"):
     """Load the formula layout from a yaml file"""
     with open(file_name) as layout_file:
-        DATABASE["layout"] = yaml.load(layout_file)
+        DATABASE["layout"] = ordered_load(layout_file)
 
 
 @app.route("/testData")
 def test_data():
     """Test formula"""
     load_layout()
-    return jsonify(DATABASE)
+    # return jsonify(DATABASE) # Doesn't respect OrderedDicts
+    response = app.response_class(
+        response=json.dumps(DATABASE),
+        status=200,
+        mimetype="application/json"
+    )
+    return response
 
 
 @app.route("/save", methods=["POST"])
