@@ -10,3 +10,5 @@
 
 - [ ] add config file
 - [ ] add "Manage Formulas" page
+
+- [ ] add README with instructions for setting up a development environment
