@@ -12,3 +12,6 @@
 - [ ] add "Manage Formulas" page
 
 - [ ] add README with instructions for setting up a development environment
+
+- [ ] TBD: Add a "dictionary-less" field type that returns a plain list of values rather than a list of dictionaries
+- [ ] TBD: Add NULL value (or removing empty pillars). Some Formulas expect that behavior rather than returning empty strings.
