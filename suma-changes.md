@@ -1,4 +1,0 @@
-- replace saveFormula function in formula pages by saveURL prop
-- add prop for systemId
-- prop "currentScope" -> "scope"
-- messages ("this is a feature preview" message)

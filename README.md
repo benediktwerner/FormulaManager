@@ -15,3 +15,6 @@ Standalone Manager for Salt Formulas with Forms.
 - This should automatically open a browse window. If not go to `http://localhost:3000`
 - The page will auto-reload on changes to JavaScript files
 - The flask server serves the formula from the `test_formula.yml` file.
+
+## Migrate changes to SUSE Manager
+Changes necessary to integrate this into SUSE Manager can be found in the file [suma-info.md](suma-info.md).
