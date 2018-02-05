@@ -4,12 +4,11 @@ const React = require("react");
 
 const Messages = require("../components/messages").Messages;
 const Network = require("../utils/network");
-const Functions = require("../utils/functions")
-const Buttons = require("../components/buttons")
+const Buttons = require("../components/buttons");
 
 const Button = Buttons.Button;
 const AsyncButton = Buttons.AsyncButton;
-const capitalize = Functions.capitalize;
+const capitalize = require("../utils/functions").capitalize;
 
 class FormulaSelection extends React.Component {
     constructor(props) {

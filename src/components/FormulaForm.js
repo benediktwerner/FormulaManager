@@ -306,7 +306,7 @@ function generateValues(layout, group_data, system_data) {
     for (let key in layout) {
         if (key.startsWith("$")) continue;
 
-        let value = null
+        let value = null;
         let element = layout[key];
 
         if (element.$type === "group" || element.$type === "namespace") {
