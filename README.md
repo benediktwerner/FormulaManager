@@ -7,7 +7,7 @@ Standalone Manager for Salt Formulas with Forms.
 - Clone the git repo: `git clone git@github.com:benediktwerner/FormulaManager.git`
 - Change directory: `cd FormulaManager`
 - Install Node dependencies: `npm install`
-- Install python dependencies: `pip3 -r requirements.txt` (Just `pip` if you only have Python 3)
+- Install python dependencies: `pip3 -r requirements.txt` (Just `pip` instead of `pip3` if you only have Python 3)
 
 ### Run
 - Start the flask server that serves the formula data: `./server.py`
