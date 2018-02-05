@@ -1,0 +1,6 @@
+users:
+  $type: "edit-group"
+  $prototype:
+    name: {}
+    password:
+      $type: password

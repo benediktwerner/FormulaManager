@@ -11,6 +11,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 
+TEST_FORUMLA_FILE = "test_formula_partitions.yml"
+
 
 app = Flask(__name__)
 CORS(app)
@@ -41,7 +43,7 @@ DATABASE = {
 }
 
 
-def load_layout(file_name="test_formula.yml"):
+def load_layout(file_name):
     """Load the formula layout from a yaml file"""
     with open(file_name) as layout_file:
         DATABASE["layout"] = ordered_load(layout_file)
@@ -50,7 +52,7 @@ def load_layout(file_name="test_formula.yml"):
 @app.route("/testData")
 def test_data():
     """Test formula"""
-    load_layout()
+    load_layout(TEST_FORUMLA_FILE)
     # return jsonify(DATABASE) # Doesn't respect OrderedDicts
     response = app.response_class(
         response=json.dumps(DATABASE),

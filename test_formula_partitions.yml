@@ -1,0 +1,20 @@
+partitions:
+  $name: "HD Partitions"
+  $type: "edit-group"
+  $minItems: 1
+  $maxItems: 3
+  $itemName: "Partition ${name}"
+  $prototype:
+    name:
+      $default: "New partition"
+    mountpoint:
+      $default: "/root"
+    size:
+      $type: "number"
+      $name: "Size in GB"
+  $default:
+    - name: "Boot"
+      mountpoint: "/boot"
+    - name: "Root"
+      mountpoint: "/root"
+      size: 5000
